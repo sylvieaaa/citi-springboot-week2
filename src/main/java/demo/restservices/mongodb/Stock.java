@@ -1,11 +1,13 @@
 package demo.restservices.mongodb;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+@Document(collection = "Stock")
 public class Stock {
     @Id
-    private long stockId = -1;
+    private String stockId;
     @Field("Name")
     private String name;
     private String date;
@@ -19,7 +21,7 @@ public class Stock {
         // Empty no-arg constructor.
     }
 
-    public Stock(long stockId, String name, String date, double open, double close, double high, double low, int volume) {
+    public Stock(String stockId, String name, String date, double open, double close, double high, double low, int volume) {
         this.stockId = stockId;
         this.name = name;
         this.date = date;
@@ -30,11 +32,11 @@ public class Stock {
         this.volume = volume;
     }
 
-    public long getStockId() {
+    public String getStockId() {
         return stockId;
     }
 
-    public void setStockId(long stockId) {
+    public void setStockId(String stockId) {
         this.stockId = stockId;
     }
 

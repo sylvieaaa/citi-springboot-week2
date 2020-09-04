@@ -4,9 +4,8 @@ import demo.restservices.mongodb.Stock;
 import demo.restservices.mongodb.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.Collection;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -17,7 +16,7 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private StockService stock;
 
-	public List<Stock> getStocks(String ticker, String date) {
+	public Collection<Stock> getStocks(String ticker, String date) {
 		System.out.println("ItemServiceImpl: " + stock.getStocks(ticker, date));
 		return stock.getStocks(ticker, date);
 	}

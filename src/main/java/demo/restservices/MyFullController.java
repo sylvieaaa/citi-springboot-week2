@@ -2,13 +2,9 @@ package demo.restservices;
 
 import demo.restservices.mongodb.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/stockManager")
@@ -20,9 +16,11 @@ public class MyFullController {
 
 	// Get all items.
 	@GetMapping(value="/stocks/{ticker}/{date}", produces={"application/json","application/xml"})
-	public List<Stock> getItems(@PathVariable String ticker,
+	public Collection<Stock> getItems(@PathVariable String ticker,
 								@PathVariable String date) {
 		System.out.println("Controller: " + service.getStocks(ticker, date));
+		System.out.println(ticker);
+		System.out.println(date);
 		return service.getStocks(ticker, date);
 	}
 /*
