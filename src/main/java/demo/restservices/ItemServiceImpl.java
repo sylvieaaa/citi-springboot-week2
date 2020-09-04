@@ -1,54 +1,68 @@
 package demo.restservices;
+import demo.restservices.mongodb.Stock;
 
+import demo.restservices.mongodb.StockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
 
-	private static Map<Integer, CatalogItem> items = new HashMap<Integer, CatalogItem>();
-	private int nextId = 1;
-	
-	// Populate collection with some simple Items, to get the ball rolling.
-	{
-		insert(new CatalogItem("Andy", "Swans jersey"));
-		insert(new CatalogItem("Jayne", "Scarf"));
-		insert(new CatalogItem("Emily", "Violin"));
-		insert(new CatalogItem("Tom", "Saxophone"));
+	// private static Map<Integer, Stock> items = new HashMap<Integer, CatalogItem>();
+	// private int nextId = 1;
+
+	@Autowired
+	private StockService stock;
+
+	public List<Stock> getStocks(String ticker, String date) {
+		System.out.println("ItemServiceImpl: " + stock.getStocks(ticker, date));
+		return stock.getStocks(ticker, date);
+	}
+
+/*
+	@Override
+	public long getItem(String ) {
+		return items.getStockId();
 	}
 
 	@Override
-	public CatalogItem getItem(int id) {
-		return items.get(id);
+	public String getItems() {
+		return items.toString();
 	}
 
 	@Override
-	public Collection<CatalogItem> getItems() {
-		return items.values();
+	public void insert(Stock item) {
+		item.setStockId(item.getStockId());
+		items.put(item.getStockId());
 	}
 
+
+	// update date
 	@Override
-	public void insert(CatalogItem item) {
-		item.setId(nextId++);
-		items.put(item.getId(), item);
+	public void update(Stock item, String date ) {
+		long id = item.getStockId();
+		if (item.getStockId() != -1) {
+			items.setDate(date);
+		}
 	}
 
+	// update volume
 	@Override
-	public void update(CatalogItem item) {
-		int id = item.getId();
-		if (items.containsKey(id)) {
-			items.put(id, item);
+	public void update(Stock item, int volume ) {
+		long id = item.getStockId();
+		if (item.getStockId() != -1) {
+			items.setVolume(volume);
 		}
 	}
 
 	@Override
-	public void delete(int id) {
-		CatalogItem item = items.get(id);
+	public void delete(long id) {
+		Stock item = items.getStockId(id);
 		if (item != null) {
 			items.remove(id);
 		}
-	}
+	}*/
 }

@@ -1,13 +1,18 @@
 package demo.restservices;
 
-import java.util.Collection;
+import demo.restservices.mongodb.Stock;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 
 public interface ItemService {
 
-	CatalogItem getItem(int id);
-	Collection<CatalogItem> getItems();
+	 List<Stock> getStocks(String ticker, String date);
+	//String getItems();
 
-	void insert(CatalogItem item);
-	void update(CatalogItem item);
-	void delete(int id);
+	//void insert(Stock item);
+	// void update(Stock item);
+	// void delete(long id);
 }
