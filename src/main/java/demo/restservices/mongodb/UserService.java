@@ -8,39 +8,48 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public boolean createUser(String password, String name, String emailAddress) {
-        User user = new User(password, name, emailAddress);
+//    public boolean createUser(String password, String name, String emailAddress) {
+//        User user = new User(password, name, emailAddress);
+//        try {
+//            userRepository.save(user);
+//            return true;
+//        } catch (Exception e){
+//            System.out.println(e);
+//            return false;
+//        }
+//    }
+
+    public User createUser(String password, String name, String emailAddress) {
         try {
+            User user = new User(password, name, emailAddress);
             userRepository.save(user);
-            return true;
+            return user;
         } catch (Exception e){
             System.out.println(e);
-            return false;
+            return null;
         }
     }
 
     public User getUser(String email) {
-        return userRepository.getUserByEmail(email);
+        return userRepository.getUsersByEmailAddress(email);
     }
 
+    // return true if successfully deleted, otherwise return false if not found
     public boolean deleteUser(String userId) {
-        try {
-            userRepository.deleteUser(userId);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
+        userRepository.deleteById(userId);
+        return true;
     }
 
     /*
         1. If the entity with the given id is not available in collection in Mongo database, then save() will work same as insert method of MongoRepository and inserts the entity.
         2. If the entity with the given id is already there in collection in Mongo database, then save() method will update the entity.
         https://www.concretepage.com/spring-5/spring-data-mongorepository-update
-    */
-    public User updateEmailAddress(String userId, String emailAddress) {
-        User user = new User(userId, emailAddress);
+     */
+    public User updateEmailAddress(String password, String name, String emailAddress, String userId) {
+        User user = new User(password, name, emailAddress, userId);
         userRepository.save(user);
-        return userRepository.getUserByEmail(emailAddress);
+        return userRepository.getUserById(userId);
     }
+
+
 }
