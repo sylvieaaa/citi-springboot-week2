@@ -58,6 +58,6 @@ public class MyFullController {
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity deleteUser(@PathVariable String id) {
 		boolean isDeleted = service.deleteUser(id);
-		return ResponseEntity.ok().body(true);
+		return ResponseEntity.ok().body(isDeleted);
 	}
 }
