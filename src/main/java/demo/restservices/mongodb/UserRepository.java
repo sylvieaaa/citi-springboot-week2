@@ -3,17 +3,16 @@ package demo.restservices.mongodb;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-public interface UserRepository extends MongoRepository {
+public interface UserRepository extends MongoRepository<User, String> {
     // Create user
-    boolean createUser(String userId, String password, String name, String emailAddress);
+    // boolean createUserById(String userId, String password, String name, String emailAddress);
 
     // Get user by email
     @Query("{ emailAddresss: ?0 }")
-    User getUserByEmail(String emailAddress);
-
+    User getUsersByEmailAddress(String emailAddress);
     // Delete user
-    boolean deleteUser(String userId);
+    boolean deleteUserByUserId(String userId);
 
     // Update email
-    User updateEmailAddress(String userId, String emailAddress);
+    // User updateUserByEmailAddress(String userId, String emailAddress);
 }

@@ -20,12 +20,12 @@ public class UserService {
     }
 
     public User getUser(String email) {
-        return userRepository.getUserByEmail(email);
+        return userRepository.getUsersByEmailAddress(email);
     }
 
     public boolean deleteUser(String userId) {
         try {
-            userRepository.deleteUser(userId);
+            userRepository.deleteUserByUserId(userId);
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -37,10 +37,12 @@ public class UserService {
         1. If the entity with the given id is not available in collection in Mongo database, then save() will work same as insert method of MongoRepository and inserts the entity.
         2. If the entity with the given id is already there in collection in Mongo database, then save() method will update the entity.
         https://www.concretepage.com/spring-5/spring-data-mongorepository-update
-    */
+     */
     public User updateEmailAddress(String userId, String emailAddress) {
         User user = new User(userId, emailAddress);
         userRepository.save(user);
-        return userRepository.getUserByEmail(emailAddress);
+        return userRepository.getUsersByEmailAddress(emailAddress);
     }
+    
+   
 }
