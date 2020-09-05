@@ -6,11 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "User")
 public class User {
     @Id
-    private String userId = "";
+    private String userId;
 
     private String password;
     private String name;
     private String emailAddress;
+
+    public User() {}
 
     public User(String password, String name, String emailAddress) {
         this.password = password;
@@ -18,9 +20,11 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public User(String userId, String emailAddress) {
-        this.userId = userId;
+    public User(String password, String name, String emailAddress, String userId) {
+        this.password = password;
+        this.name = name;
         this.emailAddress = emailAddress;
+        this.userId = userId;
     }
 
     public String getName() {

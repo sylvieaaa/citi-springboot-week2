@@ -5,13 +5,14 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface UserRepository extends MongoRepository<User, String> {
     // Create user
-    // boolean createUserById(String userId, String password, String name, String emailAddress);
+//     boolean createUser(String password, String name, String emailAddress);
 
     // Get user by email
-    @Query("{ emailAddresss: ?0 }")
+    @Query("{ emailAddress: ?0 }")
     User getUsersByEmailAddress(String emailAddress);
-    // Delete user
-    boolean deleteUserByUserId(String userId);
+
+    @Query("{ _id: ?0 }")
+    User getUserById(String userId);
 
     // Update email
     // User updateUserByEmailAddress(String userId, String emailAddress);
