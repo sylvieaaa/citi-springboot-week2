@@ -7,21 +7,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/stockManager")
+@RequestMapping("/userlogin")
 @CrossOrigin
 public class MyFullController {
 
 	@Autowired
 	private ItemService service;
 
-	// Get all items.
-	@GetMapping(value="/stocks/{ticker}/{date}", produces={"application/json","application/xml"})
-	public Collection<Stock> getItems(@PathVariable String ticker,
-								@PathVariable String date) {
-		return service.getStocks(ticker, date);
+	// Get user by email
+	@GetMapping(value="/{email}", produces={"application/json","application/xml"})
+	public Collection<Stock> getItems(@PathVariable String email) {
+		return service.getUserByEmail(email);
 	}
 /*
-	// Get a specific item.
+	// Get list of result using name
+	@GetMapping(value="/stocks/{ticker}", produces={"application/json","application/xml"})
+	public List<Stock> getItems(@PathVariable String ticker) {
+		System.out.println("Controller: " + service.getStocks(ticker));
+		return service.getStocks(ticker);
+	}
+
+	// Get a specific item
 	@GetMapping(value="/stocks/{ticker, date}", produces={"application/json","application/xml"})
 	public Stock getItem(@PathVariable String id) {
 		return service.getItem(id);

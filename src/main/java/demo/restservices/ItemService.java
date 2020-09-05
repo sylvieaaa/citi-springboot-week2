@@ -1,16 +1,13 @@
 package demo.restservices;
 
-import demo.restservices.mongodb.Stock;
-
+import demo.restservices.mongodb.*;
 import java.util.Collection;
 
 
 public interface ItemService {
 
-	 Collection<Stock> getStocks(String ticker, String date);
-	//String getItems();
-
-	//void insert(Stock item);
-	// void update(Stock item);
-	// void delete(long id);
+	boolean createUser(String userId, String password, String name, String emailAddress);
+	User getUserByEmail(String emailAddress);
+	boolean deleteUser(String userId);
+	User updateEmailAddress(String userId, String emailAddress);
 }

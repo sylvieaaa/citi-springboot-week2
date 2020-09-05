@@ -2,6 +2,8 @@ package demo.restservices;
 import demo.restservices.mongodb.Stock;
 
 import demo.restservices.mongodb.StockService;
+import demo.restservices.mongodb.User;
+import demo.restservices.mongodb.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,53 +16,28 @@ public class ItemServiceImpl implements ItemService {
 	// private int nextId = 1;
 
 	@Autowired
-	private StockService stock;
-
-	public Collection<Stock> getStocks(String ticker, String date) {
-		return stock.getStocks(ticker, date);
-	}
-
-/*
-	@Override
-	public long getItem(String ) {
-		return items.getStockId();
-	}
+	private UserRepository user;
 
 	@Override
-	public String getItems() {
-		return items.toString();
-	}
-
-	@Override
-	public void insert(Stock item) {
-		item.setStockId(item.getStockId());
-		items.put(item.getStockId());
-	}
-
-
-	// update date
-	@Override
-	public void update(Stock item, String date ) {
-		long id = item.getStockId();
-		if (item.getStockId() != -1) {
-			items.setDate(date);
+	public boolean createUser(String userId, String password, String name, String emailAddress) {
+		if(user.getUserByEmail(emailAddress) != null){
+			return user.createUser(userId, password, name, emailAddress);
 		}
-	}
-
-	// update volume
-	@Override
-	public void update(Stock item, int volume ) {
-		long id = item.getStockId();
-		if (item.getStockId() != -1) {
-			items.setVolume(volume);
-		}
+		return false;
 	}
 
 	@Override
-	public void delete(long id) {
-		Stock item = items.getStockId(id);
-		if (item != null) {
-			items.remove(id);
-		}
-	}*/
+	public User getUserByEmail(String emailAddress) {
+		return user.getUserByEmail(emailAddress);
+	}
+
+	@Override
+	public boolean deleteUser(String userId) {
+		return user.deleteUser(userId);
+	}
+
+	@Override
+	public User updateEmailAddress(String userId, String emailAddress) {
+		return user.updateEmailAddress(userId, emailAddress);
+	}
 }
