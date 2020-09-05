@@ -7,6 +7,6 @@ import java.util.Collection;
 
 public interface StockRepository extends MongoRepository<Stock, String> {
     // date must be in YYYY-MM-DD
-    @Query("{'Name': ?0, 'date': ?1}")
-    public Collection<Stock> findStockClosePriceByDate(String Name, String date);
+    @Query(value="{'Name': ?0, 'date': ?1}")
+    Collection<Stock> findStockInfoByDate(String Name, String date);
 }

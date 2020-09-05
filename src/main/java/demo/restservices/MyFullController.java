@@ -18,9 +18,6 @@ public class MyFullController {
 	@GetMapping(value="/stocks/{ticker}/{date}", produces={"application/json","application/xml"})
 	public Collection<Stock> getItems(@PathVariable String ticker,
 								@PathVariable String date) {
-		System.out.println("Controller: " + service.getStocks(ticker, date));
-		System.out.println(ticker);
-		System.out.println(date);
 		return service.getStocks(ticker, date);
 	}
 /*

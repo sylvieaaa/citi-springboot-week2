@@ -17,7 +17,6 @@ public class ItemServiceImpl implements ItemService {
 	private StockService stock;
 
 	public Collection<Stock> getStocks(String ticker, String date) {
-		System.out.println("ItemServiceImpl: " + stock.getStocks(ticker, date));
 		return stock.getStocks(ticker, date);
 	}
 

@@ -12,7 +12,6 @@ public class StockService {
     private StockRepository stockRepository;
 
     public Collection<Stock> getStocks(String ticker, String date) {
-        System.out.println("stockService: " + stockRepository.findStockClosePriceByDate(ticker, date));
-        return stockRepository.findStockClosePriceByDate(ticker, date);
+        return stockRepository.findStockInfoByDate(ticker, date);
     }
 }
