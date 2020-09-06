@@ -2,42 +2,49 @@ package demo.restservices;
 
 import demo.restservices.mongodb.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
+@SpringBootTest
 public class ItemServiceImplTest {
 
-    private ItemServiceImpl service = new ItemServiceImpl();
+    @Autowired
+    private ItemServiceImpl service;
+
     User user = new User("Hell0", "Bryan", "Bryan@hotmail.com");
 
     @Test
     public void testCreateUser(){
-       // User user = new User("Hell0", "Bryan", "Bryan@hotmail.com");
-        when(service.createUser("Hell0","Bryan","Bryan@hotmail.com")).thenReturn(user);
+        // unable to use assertEquals when user returns userId which hard to be verified.
+        // Hence have to check the value one by one
+        assertEquals(service.createUser("Hell0", "Bryan",
+                "Bryan@hotmail.com").getName(), user.getName());
+        assertEquals(service.createUser("Hell0", "Bryan",
+                "Bryan@hotmail.com").getPassword(), user.getPassword());
+        assertEquals(service.createUser("Hell0", "Bryan",
+                "Bryan@hotmail.com").getEmailAddress(), user.getEmailAddress());
     }
-
+/*
     @Test
     public void testGetUser(){
-        //User user = new User("Hell0", "Bryan", "Bryan@hotmail.com");
-        when(service.getUser(anyString())).thenReturn(user);
-        when(service.getUser("Bryan@hotmail.com")).thenReturn(user);
+        assertEquals(service.getUser("Bryan@hotmail.com").getUserId(),user.getUserId());
     }
+
+ */
 
     @Test
     public void testUpdateEmailAddress(){
-       // User user = new User("Hell0", "Bryan", "Bryan@hotmail.com");
-        when(service.updateEmailAddress(anyString(),
-                anyString(),anyString(),anyString())).thenReturn(user);
-
         assertEquals(service.updateEmailAddress("Hell0", "Bryan",
-                "NewBryan@hotmail.com","001"),"NewBryan@hotmail.com");
+                "NewBryan@hotmail.com","001").getEmailAddress(),"NewBryan@hotmail.com");
     }
 
     @Test
     public void testDeleteUser(){
-        when(service.deleteUser(anyString())).thenReturn(true);
+        assertEquals(service.deleteUser(anyString()),true);
     }
 
 }
