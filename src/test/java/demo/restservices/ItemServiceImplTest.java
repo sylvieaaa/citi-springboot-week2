@@ -1,9 +1,13 @@
 package demo.restservices;
 
 import demo.restservices.mongodb.User;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -28,13 +32,22 @@ public class ItemServiceImplTest {
         assertEquals(service.createUser("Hell0", "Bryan",
                 "Bryan@hotmail.com").getEmailAddress(), user.getEmailAddress());
     }
-/*
+
     @Test
     public void testGetUser(){
-        assertEquals(service.getUser("Bryan@hotmail.com").getUserId(),user.getUserId());
+        // List<User> expResult = new ArrayList<>();
+        // User user1 = service.createUser("Hell01", "Bryan1","Bryan1@hotmail.com");
+        // User user2 = service.createUser("Hell02", "Bryan2", "Bryan1@hotmail.com");
+        // User user3 = service.createUser("Hell03", "Bryan3", "Bryan1@hotmail.com");
+        // expResult.add(user1);
+        // expResult.add(user2);
+        // expResult.add(user3);
+        Assert.assertNotNull(service.getUser(anyString()));
+
+       //  assertEquals(expResult, result);
     }
 
- */
+
 
     @Test
     public void testUpdateEmailAddress(){
