@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public boolean deleteUser(String userId) {
-		return userService.deleteUser(userId);
+	public void deleteUser(String userId) {
+		userService.deleteUser(userId);
 	}
 }

@@ -3,13 +3,17 @@ package demo.restservices;
 import demo.restservices.mongodb.User;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -19,7 +23,7 @@ public class ItemServiceImplTest {
     @Autowired
     private ItemServiceImpl service;
 
-    User user = new User("Hell0", "Bryan", "Bryan@hotmail.com");
+    User user = new User("Hell0", "Bryan", "Bryan@hotmail.com","0101");
 
     @Test
     public void testCreateUser(){
@@ -57,7 +61,9 @@ public class ItemServiceImplTest {
 
     @Test
     public void testDeleteUser(){
-        assertEquals(service.deleteUser(anyString()),true);
+        User user = new User("Hell0", "Bryan", "Bryan2@hotmail.com","010101");
+        service.deleteUser("010101");
+        assertNull(service.getUser("Bryan2@hotmail.com"));
     }
 
 }

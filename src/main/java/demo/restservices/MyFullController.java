@@ -57,7 +57,7 @@ public class MyFullController {
 	// Delete an existing item.
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity deleteUser(@PathVariable String id) {
-		boolean isDeleted = service.deleteUser(id);
-		return ResponseEntity.ok().body(isDeleted);
+		service.deleteUser(id);
+		return ResponseEntity.ok().body("Successfully deleted");
 	}
 }

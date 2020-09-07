@@ -35,9 +35,8 @@ public class UserService {
     }
 
     // return true if successfully deleted, otherwise return false if not found
-    public boolean deleteUser(String userId) {
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
-        return true;
     }
 
     /*
