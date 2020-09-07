@@ -18,9 +18,14 @@ public class Quote {
     @JsonProperty("t")
     private double time;
 
-    public double getDayReturn() {
-        return (current - open) / open;
+    public double getCurrent() {
+        return current;
     }
+
+    public double getOpen() {
+        return open;
+    }
+
     @Override
     public String toString() {
         return "Quote{" +

@@ -1,7 +1,6 @@
 package demo.restservices;
 
 import demo.restservices.mongodb.User;
-import demo.restservices.mongodb.UserRepository;
 import demo.restservices.mongodb.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +15,14 @@ public class StockRestApiController {
     UserService userService;
 
     @Autowired
-    StockApiClient stockApiClient;
+    StockApiService stockApiService;
 
     @GetMapping(value="/stock/{ticker}", produces={"application/json","application/xml"})
     public ResponseEntity<Double> dayReturn(@PathVariable String ticker,
                                     @RequestParam(value="email") String email) {
         User user = userService.getUser(email);
         if (user != null) {
-            Double dayReturn = stockApiClient.getDayReturn(ticker);
+            Double dayReturn = stockApiService.getDayReturn(ticker);
             return ResponseEntity.ok().body(dayReturn);
         }
         else return ResponseEntity.status(403).build();

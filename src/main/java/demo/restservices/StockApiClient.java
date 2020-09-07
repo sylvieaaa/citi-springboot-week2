@@ -14,14 +14,11 @@ public class StockApiClient {
     @Value("${spring.datasource.baseurl}")
     private String baseAddress;
 
-    public double getDayReturn(String ticker) {
-        System.out.println(token);
-        System.out.println(baseAddress);
+    public Quote getQuote(String ticker) {
         RestTemplate template = new RestTemplate();
         String url = baseAddress + "?symbol=" + ticker.toUpperCase() + "&token=" + token;
-        System.out.println(url);
         template.setMessageConverters(Arrays.asList(new MappingJackson2HttpMessageConverter()));
-        Quote result = template.getForObject(url, Quote.class);
-        return result.getDayReturn();
+        Quote quote = template.getForObject(url, Quote.class);
+        return quote;
     }
 }
