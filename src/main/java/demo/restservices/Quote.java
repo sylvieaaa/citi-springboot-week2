@@ -16,14 +16,50 @@ public class Quote {
     @JsonProperty("pc")
     private double previousClose;
     @JsonProperty("t")
-    private double time;
+    private int time;
 
     public double getCurrent() {
         return current;
     }
 
+    public double getHigh() {
+        return high;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
     public double getOpen() {
         return open;
+    }
+
+    public double getPreviousClose() { return previousClose; }
+
+    public int getTime() { return time; }
+
+    public void setCurrent(double current) {
+        this.current = current;
+    }
+
+    public void setHigh(double high) {
+        this.high = high;
+    }
+
+    public void setLow(double low) {
+        this.low = low;
+    }
+
+    public void setOpen(double open) {
+        this.open = open;
+    }
+
+    public void setPreviousClose(double previousClose) {
+        this.previousClose = previousClose;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     @Override
