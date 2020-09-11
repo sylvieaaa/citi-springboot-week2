@@ -30,4 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 
-!target/employee-spring-boot-webapp-0.0.1-SNAPSHOT.jar
+!target/demo-rest-services-0.0.1-SNAPSHOT.jar
