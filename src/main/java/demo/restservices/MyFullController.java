@@ -2,6 +2,7 @@ package demo.restservices;
 
 import demo.restservices.mongodb.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,9 +55,18 @@ public class MyFullController {
 	// Update an existing item.
 	 @PutMapping(value="/user", consumes={"application/json","application/xml"})
 	 public ResponseEntity updateEmail(@RequestBody User user) {
-			User resultingUser = service.updateEmailAddress(user.getPassword(), user.getName(), user.getEmailAddress(), user.getUserId());
-		return ResponseEntity.ok().body(resultingUser);
-	}
+	 	try {
+			if (service.getUser(user.getEmailAddress()) == null) {
+				User resultingUser = service.updateEmailAddress(user.getPassword(), user.getName(), user.getEmailAddress(), user.getUserId());
+				return ResponseEntity.ok().body(resultingUser);
+			} else {
+				return ResponseEntity.badRequest().body("Bad Request");
+			}
+		} catch (IncorrectResultSizeDataAccessException e) {
+			System.out.println(e);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate email");
+		}
+	 }
 
 	// Delete an existing item.
 	@DeleteMapping("/user/{id}")

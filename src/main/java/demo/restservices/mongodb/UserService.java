@@ -39,7 +39,7 @@ public class UserService {
         https://www.concretepage.com/spring-5/spring-data-mongorepository-update
      */
     public User updateEmailAddress(String password, String name, String emailAddress, String userId) {
-        User user = new User(userId, password, name, emailAddress);
+        User user = new User(password, name, emailAddress, userId);
         userRepository.save(user);
         return userRepository.getUserById(userId);
     }
