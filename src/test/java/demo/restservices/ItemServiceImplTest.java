@@ -14,8 +14,6 @@ public class ItemServiceImplTest {
     @Autowired
     private ItemServiceImpl service;
 
-
-
     @Test
     public void testCreateUser(){
         assertEquals(service.createUser("Hell0", "Bryan",
@@ -30,8 +28,6 @@ public class ItemServiceImplTest {
     public void testGetUser(){
         Assert.assertNotNull(service.getUser("beiyi@gmail.com"));
     }
-
-
 
     @Test
     public void testUpdateEmailAddress(){

@@ -17,11 +17,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-// @WebMvcTest(MyFullController.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MyFullControllerTest {
-    // @Autowired
-    // MockMvc mockMvc;
 
     @Autowired
     private TestRestTemplate restTemplate;
