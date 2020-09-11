@@ -8,22 +8,16 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-//    public boolean createUser(String password, String name, String emailAddress) {
-//        User user = new User(password, name, emailAddress);
-//        try {
-//            userRepository.save(user);
-//            return true;
-//        } catch (Exception e){
-//            System.out.println(e);
-//            return false;
-//        }
-//    }
-
     public User createUser(String password, String name, String emailAddress) {
         try {
-            User user = new User(password, name, emailAddress);
-            userRepository.save(user);
-            return user;
+            User existingUser = this.getUser(emailAddress);
+            if (existingUser == null) {
+                User user = new User(password, name, emailAddress);
+                userRepository.save(user);
+                return user;
+            } else {
+                return null;
+            }
         } catch (Exception e){
             System.out.println(e);
             return null;

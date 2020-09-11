@@ -1,7 +1,8 @@
 package demo.restservices;
 
-import demo.restservices.mongodb.*;
+import demo.restservices.mongodb.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +32,12 @@ public class MyFullController {
 	@PostMapping(value = "/user",
 				consumes={"application/json","application/xml"},
 				produces={"application/json","application/xml"})
-	public ResponseEntity<User> createUser(@RequestBody User user) {
+	public ResponseEntity createUser(@RequestBody User user) {
 		User newUser = service.createUser(user.getPassword(), user.getName(), user.getEmailAddress());
 		URI uri = URI.create("/user");
+		if (newUser == null) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate email");
+		}
 		return ResponseEntity.created(uri).body(newUser);
 	}
 /*
