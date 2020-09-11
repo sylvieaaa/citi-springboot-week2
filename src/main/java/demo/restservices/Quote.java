@@ -1,10 +1,12 @@
 package demo.restservices;
 
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Quote {
+public @ Data class Quote {
     @JsonProperty("c")
     private double current;
     @JsonProperty("h")
@@ -18,6 +20,7 @@ public class Quote {
     @JsonProperty("t")
     private int time;
 
+    /*
     public double getCurrent() {
         return current;
     }
@@ -73,4 +76,6 @@ public class Quote {
                 ", time='" + time + '\'' +
                 '}';
     }
+
+     */
 }
