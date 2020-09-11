@@ -4,7 +4,6 @@ import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public @ Data class Quote {
     @JsonProperty("c")
