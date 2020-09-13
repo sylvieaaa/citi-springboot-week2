@@ -2,6 +2,7 @@ package demo.restservices.s3;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
@@ -10,8 +11,13 @@ import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import java.nio.ByteBuffer;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Component
 public class S3Service {
@@ -38,13 +44,12 @@ public class S3Service {
     // https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
     // https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-s3-objects.html
     //  "*** File object key name ***";
-    public String upload(String s3FileKey, String filePath) {
-        s3.putObject(PutObjectRequest.builder().bucket(bucketName).key(s3FileKey).build(),
-                RequestBody.fromByteBuffer(ByteBuffer.allocate(10_000)));
+    // Takes in multipart file -> InputStream -> File
+    public String upload(String s3FileKey, MultipartFile file) throws IOException {
+        InputStream inputStream =  new BufferedInputStream(file.getInputStream());
 
-        // Testing purposes. Will not work if the client calls the REST API, as the files are on the client side
-        // s3.putObject(PutObjectRequest.builder().bucket(bucketName).key(s3FileKey).build(),
-        // Paths.get(filePath));
+        s3.putObject(PutObjectRequest.builder().bucket(bucketName).key(s3FileKey).build(),
+                RequestBody.fromFile(uploadToTemp(inputStream, s3FileKey)));
 
         StringBuilder sb = new StringBuilder();
         sb.append("https://").append(bucketName).append(".s3-ap-southeast-1.amazonaws.com/").append(s3FileKey);
@@ -55,5 +60,19 @@ public class S3Service {
     public GetObjectResponse download(String s3FileKey, String targetFilePath) {
         return s3.getObject(GetObjectRequest.builder().bucket(bucketName).key(s3FileKey).build(),
                 ResponseTransformer.toFile(Paths.get(targetFilePath)));
+    }
+
+    protected File uploadToTemp(InputStream data, String s3FileKey) {
+        File tempPath;
+        String[] fileNameExt = s3FileKey.split("\\.");
+
+        try {
+            tempPath = File.createTempFile(fileNameExt[0], fileNameExt[1]);
+            Files.copy(data, tempPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return tempPath;
     }
 }
