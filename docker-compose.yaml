@@ -9,7 +9,7 @@ services:
         ports:
             - "27017:27017"
         volumes:
-            - ./mongovol:/data/db
+            - mongovol:/data/db
         restart: always
 
     myapp:
@@ -22,3 +22,7 @@ services:
             - "8080:8080"
         links:
             - mymongodb:mymongodb
+
+
+volumes:
+    mongovol:
