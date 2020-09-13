@@ -16,3 +16,11 @@
    * Both dockerfiles are in here by default. The mongodb dockerfile for openshift is in another repo linked.
    * The dockerfile is pointing to target/.jar file. To try on the Docker playground, please ensure the path in the Dockerfile (for spring) is changed. (If you're not importing the entire application)
    * The dockerfile mongodb (for Openshift) can be found in: https://github.com/sylvieaaa/mymongodb
+
+## Instruction to test volume
+   * Run ```docker-compose up -d ``` to start the containers
+   * ```docker volume ls ``` to find the volume container [named_volume]
+   * ```docker exec -it mymongodb bash``` to run bash shell in container. run ```mongo``` in the shell, and insert a new row in the ```User``` collection under ```sp500``` db
+   * ```container rm -f mymongodb``` to remove the mymongodb container.
+   * Create a new container and mount the volume name in the command: ```docker run -d --name mymongodb -v [named_volume]:/data/db -p 27017:27017 mongodb```
+   * Check if the data you've inserted in the discarded container still persists.
