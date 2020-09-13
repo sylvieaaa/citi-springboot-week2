@@ -25,3 +25,15 @@
    * Create a new container and mount the volume name in the command: ```docker run -d --name mymongodb -v [named_volume]:/data/db -p 27017:27017 mongodb```
    * Check if the data you've inserted in the discarded container still persists.
    * Do note to remove and re-run the spring boot application and link. ```docker run --name myapp --link mymongodb:mymongodb -d -p 8080:8080 springapp```
+
+
+## Instruction to run REST API for upload/download of images
+Requirements:
+1) Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+2) Run `aws configure` and enter your AWS Access Key ID, AWS Secret Access Key and region
+3) Run `mvn spring-boot:run`
+4) Use this endpoint to upload images
+![](https://cdn-std.droplr.net/files/acc_762374/waiSpn)
+
+5) Use this endpoint to download images
+![](https://cdn-std.droplr.net/files/acc_762374/Jhbtsl)
