@@ -8,8 +8,8 @@ services:
         image: mongodb
         ports:
             - "27017:27017"
-        # volumes:
-            # - mongovol:/data/db
+        volumes:
+            - ./mongovol:/data/db
         restart: always
 
     myapp:
@@ -22,5 +22,3 @@ services:
             - "8080:8080"
         links:
             - mymongodb:mymongodb
-# volumes:
-  # mongovol:
