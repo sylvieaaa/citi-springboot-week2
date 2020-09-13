@@ -24,3 +24,4 @@
    * ```container rm -f mymongodb``` to remove the mymongodb container.
    * Create a new container and mount the volume name in the command: ```docker run -d --name mymongodb -v [named_volume]:/data/db -p 27017:27017 mongodb```
    * Check if the data you've inserted in the discarded container still persists.
+   * Do note to remove and re-run the spring boot application and link. ```docker run --name myapp --link mymongodb:mymongodb -d -p 8080:8080 springapp```
