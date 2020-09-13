@@ -1,7 +1,7 @@
 version: '3.0'
 services:
-    mongodb:
-        container_name: mongodb
+    mymongodb:
+        container_name: mymongodb
         build:
             context: .
             dockerfile: Dockerfile-mongodb
@@ -11,17 +11,16 @@ services:
         # volumes:
             # - mongovol:/data/db
         restart: always
-        environment:
-            MONGO_INITDB_DATABASE : 'sp500'
+
     myapp:
         container_name: myapp
         build:
             context: .
             dockerfile: Dockerfile
-        image: myapp
+        image: springapp
         ports:
             - "8080:8080"
         links:
-            - mongodb:blablabla
+            - mymongodb:mymongodb
 # volumes:
   # mongovol:
